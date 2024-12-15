@@ -1,0 +1,42 @@
+@use "/src/Assets/Styles/Colors" as *;
+
+.WindowControls {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+
+  background-color: $bg-color2;
+  user-select: none;
+
+  -webkit-app-region: drag;
+}
+
+.WindowControls-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.WindowControls-button-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.15s ease;
+  height: 50px;
+  width: 50px;
+  -webkit-app-region: no-drag;
+
+  &:hover {
+    background-color: $bg-color-hover1;
+
+    &:last-child {
+      background-color: $bg-color-hover2;
+    }
+  }
+}
+
+.WindowControls-button {
+  display: flex;
+}
