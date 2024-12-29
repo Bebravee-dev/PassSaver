@@ -1,7 +1,6 @@
 import { ipcRenderer, contextBridge } from "electron";
 
-console.log("Preload is loaded");
-
+// --------- Expose some API to the Renderer process ---------
 contextBridge.exposeInMainWorld("ipcRenderer", {
   on(...args: Parameters<typeof ipcRenderer.on>) {
     const [channel, listener] = args;
@@ -9,7 +8,6 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
       listener(event, ...args)
     );
   },
-
   off(...args: Parameters<typeof ipcRenderer.off>) {
     const [channel, ...omit] = args;
     return ipcRenderer.off(channel, ...omit);
@@ -23,7 +21,6 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
     return ipcRenderer.invoke(channel, ...omit);
   },
 
-  minimize: () => ipcRenderer.invoke("window:minimize"),
-  maximize: () => ipcRenderer.invoke("window:maximize"),
-  close: () => ipcRenderer.invoke("window:close"),
+  // You can expose other APTs you need here.
+  // ...
 });

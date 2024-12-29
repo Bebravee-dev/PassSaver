@@ -1,6 +1,5 @@
 "use strict";
 const electron = require("electron");
-console.log("Preload is loaded");
 electron.contextBridge.exposeInMainWorld("ipcRenderer", {
   on(...args) {
     const [channel, listener] = args;
@@ -20,8 +19,7 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", {
   invoke(...args) {
     const [channel, ...omit] = args;
     return electron.ipcRenderer.invoke(channel, ...omit);
-  },
-  minimize: () => electron.ipcRenderer.invoke("window:minimize"),
-  maximize: () => electron.ipcRenderer.invoke("window:maximize"),
-  close: () => electron.ipcRenderer.invoke("window:close")
+  }
+  // You can expose other APTs you need here.
+  // ...
 });

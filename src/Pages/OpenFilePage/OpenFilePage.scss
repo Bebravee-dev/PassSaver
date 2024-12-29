@@ -1,3 +1,21 @@
+@use "../../Assets/Styles/Colors.scss" as *;
+
 .OpenFilePage {
-  padding-top: 50px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 25px;
+
+  button {
+    cursor: pointer;
+    font-size: 20px;
+    background-color: $bg-color2;
+
+    padding: 15px;
+    border-radius: 15px;
+  }
 }

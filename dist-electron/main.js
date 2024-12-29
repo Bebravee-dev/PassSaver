@@ -1,8 +1,6 @@
-import { ipcMain, BrowserWindow, app } from "electron";
-import { createRequire } from "node:module";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.APP_ROOT = path.join(__dirname, "..");
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
@@ -15,18 +13,30 @@ function createWindow() {
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     frame: false,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      nodeIntegrationInWorker: false,
-      nodeIntegrationInSubFrames: false,
-      preload: path.join(__dirname, "preload.js"),
-      sandbox: false
+      preload: path.join(__dirname, "preload.mjs")
     }
   });
-  console.log("Preload file path: ", path.join(__dirname, "preload.js"));
-  win.webContents.openDevTools();
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  });
+  ipcMain.on("window-minimize", () => {
+    if (win) {
+      win.minimize();
+    }
+  });
+  ipcMain.on("window-restore", () => {
+    if (win) {
+      if (win.isMaximized()) {
+        win.restore();
+      } else {
+        win.maximize();
+      }
+    }
+  });
+  ipcMain.on("window-close", () => {
+    if (win) {
+      win.close();
+    }
   });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);
@@ -34,28 +44,6 @@ function createWindow() {
     win.loadFile(path.join(RENDERER_DIST, "index.html"));
   }
 }
-ipcMain.handle("window:minimize", () => {
-  const focusedWindow = BrowserWindow.getFocusedWindow();
-  if (focusedWindow) {
-    focusedWindow.minimize();
-  }
-});
-ipcMain.handle("window:maximize", () => {
-  const focusedWindow = BrowserWindow.getFocusedWindow();
-  if (focusedWindow) {
-    if (focusedWindow.isMaximized()) {
-      focusedWindow.unmaximize();
-    } else {
-      focusedWindow.maximize();
-    }
-  }
-});
-ipcMain.handle("window:close", () => {
-  const focusedWindow = BrowserWindow.getFocusedWindow();
-  if (focusedWindow) {
-    focusedWindow.close();
-  }
-});
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();

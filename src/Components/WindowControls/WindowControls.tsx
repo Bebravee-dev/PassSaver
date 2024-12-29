@@ -5,9 +5,9 @@ import Restore_icon from "./icons/Restore_icon.svg";
 import Close_icon from "./icons/Close_icon.svg";
 
 const WindowControls: React.FC = () => {
-  const handleMinimize = () => window.electron.minimize();
-  const handleMaximize = () => window.electron.maximize();
-  const handleClose = () => window.electron.close();
+  const handleMinimize = () => window.ipcRenderer.send("window-minimize");
+  const handleMaximize = () => window.ipcRenderer.send("window-restore");
+  const handleClose = () => window.ipcRenderer.send("window-close");
 
   return (
     <div className="WindowControls">
