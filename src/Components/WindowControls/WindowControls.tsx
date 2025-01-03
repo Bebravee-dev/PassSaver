@@ -1,13 +1,22 @@
 import "./WindowControls.scss";
 
+import { useState, useEffect } from "react";
+
 import Minimize_icon from "./icons/Minimize_icon.svg";
 import Restore_icon from "./icons/Restore_icon.svg";
+import Maximize_icon from "./icons/Maximize_icon.svg";
 import Close_icon from "./icons/Close_icon.svg";
 
 const WindowControls: React.FC = () => {
+  const [isMaximize, setIsMaximize] = useState<string>("");
+
   const handleMinimize = () => window.ipcRenderer.send("window-minimize");
   const handleMaximize = () => window.ipcRenderer.send("window-restore");
   const handleClose = () => window.ipcRenderer.send("window-close");
+
+  useEffect(() => {
+    return () => {};
+  }, [isMaximize]);
 
   return (
     <div className="WindowControls">

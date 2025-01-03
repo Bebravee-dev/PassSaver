@@ -19,6 +19,18 @@ function createWindow() {
   win.webContents.on("did-finish-load", () => {
     win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
   });
+  win.on("maximize", () => {
+    win == null ? void 0 : win.webContents.send("window-state-changed", { isMaximized: true });
+  });
+  win.on("unmaximize", () => {
+    win == null ? void 0 : win.webContents.send("window-state-changed", { isMaximized: false });
+  });
+  win.on("enter-full-screen", () => {
+    win == null ? void 0 : win.webContents.send("window-state-changed", { isFullScreen: true });
+  });
+  win.on("leave-full-screen", () => {
+    win == null ? void 0 : win.webContents.send("window-state-changed", { isFullScreen: false });
+  });
   ipcMain.on("window-minimize", () => {
     if (win) {
       win.minimize();
