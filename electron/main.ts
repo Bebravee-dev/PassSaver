@@ -25,14 +25,16 @@ function createWindow() {
     },
   });
 
-  win.webContents.on("did-finish-load", () => {
-    win?.webContents.send("main-process-message", new Date().toLocaleString());
+  win.on("maximize", () => {
+    win?.webContents.send("window-state", { isMaximized: true });
+  });
+
+  win.on("unmaximize", () => {
+    win?.webContents.send("window-state", { isMaximized: false });
   });
 
   ipcMain.on("window-minimize", () => {
-    if (win) {
-      win.minimize();
-    }
+    win?.minimize();
   });
 
   ipcMain.on("window-restore", () => {
@@ -42,13 +44,13 @@ function createWindow() {
       } else {
         win.maximize();
       }
+    } else {
+      console.error("Window is not defined.");
     }
   });
 
   ipcMain.on("window-close", () => {
-    if (win) {
-      win.close();
-    }
+    win?.close();
   });
 
   if (VITE_DEV_SERVER_URL) {

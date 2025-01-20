@@ -16,25 +16,14 @@ function createWindow() {
       preload: path.join(__dirname, "preload.mjs")
     }
   });
-  win.webContents.on("did-finish-load", () => {
-    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  });
   win.on("maximize", () => {
-    win == null ? void 0 : win.webContents.send("window-state-changed", { isMaximized: true });
+    win == null ? void 0 : win.webContents.send("window-state", { isMaximized: true });
   });
   win.on("unmaximize", () => {
-    win == null ? void 0 : win.webContents.send("window-state-changed", { isMaximized: false });
-  });
-  win.on("enter-full-screen", () => {
-    win == null ? void 0 : win.webContents.send("window-state-changed", { isFullScreen: true });
-  });
-  win.on("leave-full-screen", () => {
-    win == null ? void 0 : win.webContents.send("window-state-changed", { isFullScreen: false });
+    win == null ? void 0 : win.webContents.send("window-state", { isMaximized: false });
   });
   ipcMain.on("window-minimize", () => {
-    if (win) {
-      win.minimize();
-    }
+    win == null ? void 0 : win.minimize();
   });
   ipcMain.on("window-restore", () => {
     if (win) {
@@ -43,12 +32,12 @@ function createWindow() {
       } else {
         win.maximize();
       }
+    } else {
+      console.error("Window is not defined.");
     }
   });
   ipcMain.on("window-close", () => {
-    if (win) {
-      win.close();
-    }
+    win == null ? void 0 : win.close();
   });
   if (VITE_DEV_SERVER_URL) {
     win.loadURL(VITE_DEV_SERVER_URL);

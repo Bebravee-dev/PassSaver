@@ -15,8 +15,19 @@ const WindowControls: React.FC = () => {
   const handleClose = () => window.ipcRenderer.send("window-close");
 
   useEffect(() => {
-    return () => {};
-  }, [isMaximize]);
+    const updateMaximizeState = (
+      _: any,
+      { isMaximized }: { isMaximized: boolean }
+    ) => {
+      setIsMaximize(isMaximized ? "maximized" : "restored");
+    };
+
+    window.ipcRenderer.on("window-state", updateMaximizeState);
+
+    return () => {
+      window.ipcRenderer.off("window-state", updateMaximizeState);
+    };
+  }, []);
 
   return (
     <div className="WindowControls">
@@ -29,7 +40,12 @@ const WindowControls: React.FC = () => {
 
         <div className="WindowControls-button-bg" onClick={handleMaximize}>
           <button className="WindowControls-button">
-            <img src={Restore_icon} alt="Restore icon" />
+            <img
+              src={isMaximize === "maximized" ? Restore_icon : Maximize_icon}
+              alt={
+                isMaximize === "maximized" ? "Restore icon" : "Maximize icon"
+              }
+            />
           </button>
         </div>
 

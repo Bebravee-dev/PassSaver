@@ -19,6 +19,7 @@ const router = createBrowserRouter([
       </div>
     ),
   },
+
   {
     path: "/openFile",
     element: (
