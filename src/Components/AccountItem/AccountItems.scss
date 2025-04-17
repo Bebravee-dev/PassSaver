@@ -1,0 +1,8 @@
+@use "../../Assets/Styles/Colors.scss" as *;
+
+.AccountItems__header {
+  input {
+    background-color: $bg-color2;
+    padding: 10px;
+  }
+}

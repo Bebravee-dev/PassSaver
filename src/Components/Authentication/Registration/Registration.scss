@@ -1,0 +1,38 @@
+@use "../../../Assets/Styles/Colors.scss" as *;
+
+.Registration {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 20px;
+  align-items: center;
+
+  input {
+    border: 2px solid white;
+    padding: 0 10px 0 10px;
+    height: 40px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .Registration__btn {
+    border: none;
+    background-color: white;
+    color: black;
+    width: 100%;
+    height: 40px;
+    font-weight: 600;
+
+    transition: background-color 0.2s ease, color 0.1s;
+    &:hover {
+      background-color: $bg-color1;
+      color: white;
+      border: 2px solid white;
+    }
+  }
+}

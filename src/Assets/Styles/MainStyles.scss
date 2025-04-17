@@ -18,6 +18,10 @@ body {
 
     color: $font-color1;
     font-family: "Overpass", serif;
-    font-size: 50px;
+    font-size: 1em;
+  }
+
+  button {
+    cursor: pointer;
   }
 }

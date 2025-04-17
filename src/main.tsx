@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./Assets/Styles/MainStyles.scss";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import WindowControls from "./Components/WindowControls/WindowControls";
 
-import OpenFilePage from "./Pages/OpenFilePage/OpenFilePage.tsx";
-
-const KEY = "";
+// import AuthenticationPage from "./Pages/AuthenticationPage.tsx";
+import AccountsListPage from "./Pages/AccountsListPage/AccountsListPage";
+import "./Assets/Styles/MainStyles.scss";
 
 const router = createBrowserRouter([
   {
@@ -15,16 +14,7 @@ const router = createBrowserRouter([
     element: (
       <div>
         <WindowControls />
-        <OpenFilePage />
-      </div>
-    ),
-  },
-
-  {
-    path: "/openFile",
-    element: (
-      <div>
-        <OpenFilePage />
+        <AccountsListPage />
       </div>
     ),
   },
