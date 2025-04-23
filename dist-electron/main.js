@@ -14,7 +14,9 @@ function createWindow() {
     frame: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.mjs")
-    }
+    },
+    minWidth: 600,
+    minHeight: 600
   });
   win.on("maximize", () => {
     win == null ? void 0 : win.webContents.send("window-state", { isMaximized: true });

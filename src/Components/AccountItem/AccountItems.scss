@@ -1,8 +1,12 @@
 @use "../../Assets/Styles/Colors.scss" as *;
 
 .AccountItems__header {
+  display: flex;
+  justify-content: center;
+
   input {
     background-color: $bg-color2;
     padding: 10px;
+    margin: 20px 0;
   }
 }

@@ -4,7 +4,7 @@ const AccountItem: React.FC = () => {
   return (
     <div className="AccountItems">
       <div className="AccountItems__header">
-        <input type="text" />
+        <input type="text" placeholder="Поиск" />
       </div>
     </div>
   );
