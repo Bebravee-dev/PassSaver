@@ -3,9 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import WindowControls from "./Components/WindowControls/WindowControls";
-
-import AuthenticationPage from "./Pages/AuthenticationPage.tsx";
-//import AccountsListPage from "./Pages/AccountsListPage/AccountsListPage";
+import AccountsListPage from "./Pages/AccountsListPage/AccountsListPage";
 import "./Assets/Styles/MainStyles.scss";
 
 const router = createBrowserRouter([
@@ -14,7 +12,7 @@ const router = createBrowserRouter([
     element: (
       <div>
         <WindowControls />
-        <AuthenticationPage />
+        <AccountsListPage />
       </div>
     ),
   },
